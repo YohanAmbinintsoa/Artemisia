@@ -31,7 +31,7 @@ public class JwtUtils {
     System.out.println(user.getRole());
     System.out.println("CLASS="+user.getRole().getClass());
     return Jwts.builder()
-        .setSubject((user.getId()))
+        .setSubject(String.valueOf(user.getId()))
         .claim("role", user.getRole())
         .setIssuedAt(new Date())
         .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
@@ -43,9 +43,9 @@ public class JwtUtils {
     return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
   }
 
-  public String getUserIdFromToken(String token) {
-    return Jwts.parserBuilder().setSigningKey(key()).build()
-               .parseClaimsJws(token).getBody().getSubject();
+  public Integer getUserIdFromToken(String token) {
+    return  Integer.parseInt(Jwts.parserBuilder().setSigningKey(key()).build()
+    .parseClaimsJws(token).getBody().getSubject());
           
   }
 

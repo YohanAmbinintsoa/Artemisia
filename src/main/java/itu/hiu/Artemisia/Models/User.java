@@ -15,8 +15,8 @@ import java.sql.Statement;
 
 @Table(name = "artiste")
 public class User {
-    @Id(name = "id_artiste",idtype = Generation.AUTO)
-    String id;
+    @Id(name = "id_artiste",idtype = Generation.DEFAULT)
+    Integer id;
     @Column(name = "nom")
     String nom;
     @Column(name = "prenom")
@@ -47,7 +47,7 @@ public class User {
             user=new User();
             user.setNom(res.getString("nom"));
             user.setPrenom(res.getString("prenom"));
-            user.setId(res.getString("id_artiste"));
+            user.setId(res.getInt("id_artiste"));
             user.setDtn(res.getDate("date_naissance"));
             user.setRole(res.getString("role"));
             user.setNomUser(res.getString("nom_artiste"));
@@ -59,14 +59,6 @@ public class User {
     }
 
     public User() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getNom() {
@@ -142,6 +134,14 @@ public class User {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 }
